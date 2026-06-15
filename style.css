@@ -381,7 +381,12 @@ html, body {
 .card-corpo-inner {
   overflow: hidden;
   position: relative;
-  min-height: 160px;
+  min-height: 0;
+  transition: min-height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .card-corpo-inner {
+  min-height: 150px;
 }
 
 /* gradiente pra o texto ficar legível sobre a imagem */
