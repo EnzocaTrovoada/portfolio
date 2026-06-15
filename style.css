@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap');
+/* fontes carregadas via <link> no HTML — @import removido pois bloqueava o render */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -101,6 +101,7 @@ html, body {
   display: grid;
   grid-template-columns: 1fr 260px;
   overflow: hidden;
+  min-height: 0;
 }
 
 /* ── projetos (esquerda) ── */
@@ -401,8 +402,9 @@ html, body {
 }
 
 /* ── páginas internas ── */
-html.page-body, .page-body body {
+html.interna, html.interna body {
   overflow: auto;
+  height: auto;
 }
 
 .page {
