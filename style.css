@@ -181,18 +181,29 @@ html, body {
 
 .card-desc {
   font-size: 0.74rem;
-  color: var(--mid);
+  color: var(--bright);
   line-height: 1.7;
   letter-spacing: 0.02em;
   padding-top: 0.75rem;
+  text-shadow:
+    -1px -1px 0 #080808,
+     1px -1px 0 #080808,
+    -1px  1px 0 #080808,
+     1px  1px 0 #080808,
+     0 0 8px rgba(8,8,8,0.95);
 }
 
 .card-cta {
   display: block;
   font-size: 0.6rem;
   letter-spacing: 0.16em;
-  color: var(--muted);
+  color: var(--text);
   padding-top: 0.45rem;
+  text-shadow:
+    -1px -1px 0 #080808,
+     1px -1px 0 #080808,
+    -1px  1px 0 #080808,
+     1px  1px 0 #080808;
 }
 
 .lista-msg {
