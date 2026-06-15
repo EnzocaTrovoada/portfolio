@@ -7,49 +7,100 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { overflow: auto; }
+    body { overflow: hidden; }
+
+    .sobre-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* coluna esquerda: texto */
+    .sobre-texto {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3rem;
+      overflow-y: auto;
+    }
+
+    .sobre-texto .page-back  { margin-bottom: 2.5rem; }
+    .sobre-texto .tag        { margin-bottom: 0.5rem; }
+    .sobre-texto h1          { margin-bottom: 1.8rem; margin-top: 0.4rem; }
+    .sobre-texto p           { margin-bottom: 1rem; }
+
+    /* coluna direita: slideshow */
+    .sobre-slide-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* fade gradiente da esquerda pra dentro da imagem */
+    .sobre-slide-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #080808 0%, #08080855 35%, transparent 65%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .sobre-slide-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      filter: grayscale(25%) contrast(1.05);
+    }
+
+    .sobre-slide-img.ativo { opacity: 1; }
   </style>
 </head>
 <body>
   <div class="noise"></div>
   <div class="scanlines"></div>
 
-  <div class="page">
-    <a href="index.html" class="page-back">← voltar</a>
-    <span class="tag">// sobre</span>
-    <h1>QUEM<br><span class="outline">SOU EU</span></h1>
+  <div class="sobre-layout">
 
-    <!--
-      IMAGEM DE PERFIL/CAPA
-      Coloque sua foto em assets/foto.jpg
-      para ela aparecer aqui automaticamente.
-    -->
-    <div class="sobre-img-wrap">
-      <img
-        class="sobre-img"
-        src="assets/sobre.jpg"
-        alt="foto"
-        onerror="this.parentElement.style.display='none'"
-      >
+    <!-- esquerda: texto -->
+    <div class="sobre-texto">
+      <a href="index.html" class="page-back">← voltar</a>
+      <span class="tag">// sobre</span>
+      <h1>QUEM<br><span class="outline">SOU EU</span></h1>
+
+      <p>
+        Oii, sou estudante de Sistemas de Informação na Universidade Federal do Estado do Rio de Janeiro (UNIRIO).
+      </p>
+      <p>
+        Curiosidades: Sou vegano, sou muito bom no geoguesser, minha cor favorita é verde e eu tenho alergia à tinta de rena.
+      </p>
     </div>
 
-    <p>
-      Oii, sou estudante de Sistemas de Informação na Universidade Federal do Estado do Rio de Janeiro(UNIRIO).
-    </p>
-    <p>
-      Curiosidades: Sou vegano, sou muito bom no geoguesser, minha cor favorita é verde e eu tenho alergia à tinta de rena.
-    </p>
-
-    <!--
-      GALERIA DE IMAGENS EXTRAS
-      Coloque imagens em assets/galeria/ e adicione tags <img> aqui:
-      <img src="assets/galeria/foto1.jpg" alt="descrição">
-    -->
-    <div class="galeria" id="galeria">
-      <img src="assets/galeria/WhatsApp Image 2025-09-05 at 14.20.02.jpeg" alt="foto 1">
-      <img src="assets/galeria/WhatsApp Image 2025-09-06 at 11.32.03.jpeg" alt="foto 2">
+    <!-- direita: slideshow das 3 imagens -->
+    <div class="sobre-slide-wrap">
+      <img class="sobre-slide-img ativo" src="assets/sobre.jpg" alt="">
+      <img class="sobre-slide-img" src="assets/galeria/WhatsApp Image 2025-09-05 at 14.20.02.jpeg" alt="">
+      <img class="sobre-slide-img" src="assets/galeria/WhatsApp Image 2025-09-06 at 11.32.03.jpeg" alt="">
     </div>
 
   </div>
+
+  <script>
+    const imgs = Array.from(document.querySelectorAll('.sobre-slide-img'));
+    let atual = 0;
+
+    setInterval(() => {
+      imgs[atual].classList.remove('ativo');
+      atual = (atual + 1) % imgs.length;
+      imgs[atual].classList.add('ativo');
+    }, 4000);
+  </script>
 </body>
 </html>
