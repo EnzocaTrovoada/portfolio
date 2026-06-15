@@ -8,7 +8,11 @@ async function carregarRepos() {
     const res = await fetch(
       `https://api.github.com/users/${USUARIO}/repos?sort=updated&per_page=30`
     );
-    if (!res.ok) throw new Error();
+    if (res.status === 403 || res.status === 429) {
+      lista.innerHTML = '<p class="lista-msg">limite da API do github atingido. tente novamente em alguns minutos.</p>';
+      return;
+    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
     const repos = await res.json();
     const publicos = repos.filter(r => !r.fork && r.name !== 'portfolio');
