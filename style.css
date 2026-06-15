@@ -234,6 +234,7 @@ html, body {
   transition: width 0.25s ease;
 }
 
+.nav-link:visited { color: var(--muted); }
 .nav-link:hover { color: var(--bright); }
 .nav-link:hover::after { width: 100%; }
 
