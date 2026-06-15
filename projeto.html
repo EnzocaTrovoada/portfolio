@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto — Enzo</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="scanlines"></div>
+
+  <div class="page projeto-detalhe" id="conteudo">
+    <a href="index.html" class="page-back">← voltar</a>
+    <p class="tag" id="proj-tag">// carregando...</p>
+    <h1 id="proj-nome"></h1>
+    <p class="meta" id="proj-meta"></p>
+    <p id="proj-desc"></p>
+    <a id="proj-link" class="btn-github" href="#" target="_blank">
+      → ver no github
+    </a>
+  </div>
+
+  <script>
+    const USUARIO = 'EnzocaTrovoada';
+
+    async function carregarProjeto() {
+      const params  = new URLSearchParams(window.location.search);
+      const repoNome = params.get('repo');
+
+      if (!repoNome) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      document.title = `${repoNome} — Enzo`;
+
+      try {
+        const res  = await fetch(`https://api.github.com/repos/${USUARIO}/${repoNome}`);
+        if (!res.ok) throw new Error();
+        const repo = await res.json();
+
+        document.getElementById('proj-tag').textContent  = `// projeto`;
+        document.getElementById('proj-nome').textContent = repo.name;
+        document.getElementById('proj-desc').textContent = repo.description || 'sem descrição ainda.';
+        document.getElementById('proj-link').href        = repo.html_url;
+
+        const meta = [
+          repo.language,
+          repo.stargazers_count > 0 ? `★ ${repo.stargazers_count}` : null,
+          `atualizado em ${new Date(repo.updated_at).toLocaleDateString('pt-BR')}`
+        ].filter(Boolean).join('  ·  ');
+
+        document.getElementById('proj-meta').textContent = meta;
+
+      } catch (e) {
+        document.getElementById('proj-tag').textContent  = '// erro';
+        document.getElementById('proj-nome').textContent = repoNome;
+        document.getElementById('proj-desc').textContent = 'não foi possível carregar os detalhes.';
+      }
+    }
+
+    carregarProjeto();
+  </script>
+</body>
+</html>
