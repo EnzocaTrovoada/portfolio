@@ -59,3 +59,47 @@ async function carregarRepos() {
 }
 
 carregarRepos();
+
+// typewriter na bio
+(function() {
+  const bio = document.querySelector('.bio');
+  if (!bio) return;
+  const texto = bio.textContent.trim();
+  bio.innerHTML = '<span id="bio-texto"></span><span class="cursor-tipo">|</span>';
+  const el = document.getElementById('bio-texto');
+  let i = 0;
+  setTimeout(() => {
+    const timer = setInterval(() => {
+      el.textContent = texto.slice(0, ++i);
+      if (i >= texto.length) {
+        clearInterval(timer);
+        setTimeout(() => { const c = bio.querySelector('.cursor-tipo'); if (c) c.remove(); }, 1200);
+      }
+    }, 45);
+  }, 500);
+})();
+
+// konami code easter egg
+(function() {
+  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let idx = 0;
+  document.addEventListener('keydown', e => {
+    idx = (e.key === seq[idx]) ? idx + 1 : (e.key === seq[0] ? 1 : 0);
+    if (idx === seq.length) { idx = 0; ativarGlitch(); }
+  });
+  function ativarGlitch() {
+    const nome = document.querySelector('.nome');
+    if (!nome) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'konami-overlay';
+    overlay.textContent = '⚡ TROVOADA ⚡';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+    nome.classList.add('glitch-ativo');
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      nome.classList.remove('glitch-ativo');
+      setTimeout(() => overlay.remove(), 400);
+    }, 2600);
+  }
+})();
