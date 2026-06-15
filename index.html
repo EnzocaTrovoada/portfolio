@@ -3,26 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — Em construção</title>
+  <title>Enzo — Portfólio</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <div class="noise"></div>
+  <div class="scanlines"></div>
 
-  <main class="container">
-    <div class="glitch-wrapper">
-      <h1 class="glitch" data-text="EM CONSTRUÇÃO">EM CONSTRUÇÃO</h1>
-    </div>
+  <svg class="speedlines" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#1a1a1a" stroke-width="0.8">
+      <line x1="400" y1="400" x2="0"   y2="0"/>
+      <line x1="400" y1="400" x2="100" y2="0"/>
+      <line x1="400" y1="400" x2="200" y2="0"/>
+      <line x1="400" y1="400" x2="300" y2="0"/>
+      <line x1="400" y1="400" x2="400" y2="0"/>
+      <line x1="400" y1="400" x2="500" y2="0"/>
+      <line x1="400" y1="400" x2="600" y2="0"/>
+      <line x1="400" y1="400" x2="700" y2="0"/>
+      <line x1="400" y1="400" x2="800" y2="0"/>
+      <line x1="400" y1="400" x2="800" y2="100"/>
+      <line x1="400" y1="400" x2="800" y2="200"/>
+      <line x1="400" y1="400" x2="800" y2="300"/>
+      <line x1="400" y1="400" x2="800" y2="400"/>
+      <line x1="400" y1="400" x2="800" y2="500"/>
+      <line x1="400" y1="400" x2="800" y2="600"/>
+      <line x1="400" y1="400" x2="800" y2="700"/>
+      <line x1="400" y1="400" x2="800" y2="800"/>
+      <line x1="400" y1="400" x2="700" y2="800"/>
+      <line x1="400" y1="400" x2="600" y2="800"/>
+      <line x1="400" y1="400" x2="500" y2="800"/>
+      <line x1="400" y1="400" x2="400" y2="800"/>
+      <line x1="400" y1="400" x2="300" y2="800"/>
+      <line x1="400" y1="400" x2="200" y2="800"/>
+      <line x1="400" y1="400" x2="100" y2="800"/>
+      <line x1="400" y1="400" x2="0"   y2="800"/>
+      <line x1="400" y1="400" x2="0"   y2="700"/>
+      <line x1="400" y1="400" x2="0"   y2="600"/>
+      <line x1="400" y1="400" x2="0"   y2="500"/>
+      <line x1="400" y1="400" x2="0"   y2="400"/>
+      <line x1="400" y1="400" x2="0"   y2="300"/>
+      <line x1="400" y1="400" x2="0"   y2="200"/>
+      <line x1="400" y1="400" x2="0"   y2="100"/>
+    </g>
+  </svg>
 
-    <div class="tape"></div>
+  <main>
+    <section class="hero">
+      <span class="tag">// portfólio</span>
 
-    <p class="subtitle">O portfólio está sendo montado.<br>Volte em breve.</p>
+      <h1 class="nome">
+        ENZO<br>
+        <span class="outline">TROVOADA</span>
+      </h1>
 
-    <div class="status-box">
-      <span class="dot"></span>
-      <span class="status-text">Servidor online</span>
-    </div>
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-dot"></div>
+        <div class="divider-line"></div>
+      </div>
+
+      <p class="bio">
+        desenvolvedor frontend.<br>
+        faço interfaces que não pedem licença.
+      </p>
+
+      <div class="status">
+        <span class="dot"></span>
+        disponível pra projetos
+      </div>
+
+      <nav class="links">
+        <a href="#projetos">projetos</a>
+        <span class="sep">—</span>
+        <a href="#sobre">sobre</a>
+        <span class="sep">—</span>
+        <a href="#contato">contato</a>
+      </nav>
+    </section>
   </main>
 
   <script src="script.js"></script>

@@ -1,16 +1,13 @@
-// Adiciona linhas de scan horizontais animadas ao glitch
-const glitch = document.querySelector('.glitch');
+const nome = document.querySelector('.nome');
 
 document.addEventListener('mousemove', (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 6;
-  const y = (e.clientY / window.innerHeight - 0.5) * 6;
-  if (glitch) {
-    glitch.style.transform = `perspective(600px) rotateY(${x}deg) rotateX(${-y}deg)`;
+  const x = (e.clientX / window.innerWidth  - 0.5) * 8;
+  const y = (e.clientY / window.innerHeight - 0.5) * 8;
+  if (nome) {
+    nome.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${-y}deg)`;
   }
 });
 
 document.addEventListener('mouseleave', () => {
-  if (glitch) {
-    glitch.style.transform = '';
-  }
+  if (nome) nome.style.transform = '';
 });
