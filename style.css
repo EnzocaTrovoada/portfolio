@@ -381,20 +381,37 @@ html, body {
 .card-corpo-inner {
   overflow: hidden;
   position: relative;
+  min-height: 160px;
+}
+
+/* gradiente pra o texto ficar legível sobre a imagem */
+.card-corpo-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #080808 0%, #08080899 45%, transparent 75%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .card-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   opacity: 0;
-  transition: opacity 0.4s;
-  filter: grayscale(60%);
+  transition: opacity 0.8s;
+  filter: grayscale(25%) contrast(1.05);
   pointer-events: none;
+  animation: kenburns 14s ease-in-out infinite alternate;
 }
 
-.card:hover .card-bg { opacity: 0.12; }
+.card:hover .card-bg { opacity: 1; }
+
+.card-desc, .card-cta {
+  position: relative;
+  z-index: 2;
+}
 
 /* ── animação Ken Burns ── */
 @keyframes kenburns {
