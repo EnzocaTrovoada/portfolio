@@ -6,53 +6,242 @@
   <title>Projeto — Enzoca Trovoada</title>
   <link rel="stylesheet" href="style.css?v=4">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* projeto é full-screen (sem scroll de página) */
+    html.interna, html.interna body { overflow: hidden; height: 100%; }
+
+    .proj-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── esquerda ── */
+    .proj-left {
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 3rem;
+      overflow-y: auto;
+      gap: 0.9rem;
+      border-right: 1px solid var(--border);
+    }
+    .proj-left::-webkit-scrollbar       { width: 2px; }
+    .proj-left::-webkit-scrollbar-thumb { background: var(--border); }
+    .proj-left { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+    /* nav anterior / próximo */
+    .proj-nav {
+      display: none;
+      gap: 1.4rem;
+      align-items: center;
+    }
+    .proj-nav-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .proj-nav-btn:hover:not(:disabled) { color: var(--bright); }
+    .proj-nav-btn:disabled { opacity: 0.2; cursor: default; }
+
+    /* título */
+    .proj-left h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      line-height: 0.95;
+      color: var(--bright);
+    }
+
+    .proj-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .proj-desc {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.85;
+    }
+
+    /* readme com scroll */
+    .proj-readme-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+      min-height: 0;
+    }
+    .proj-readme {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1rem 1.2rem;
+      font-size: 0.68rem;
+      color: var(--mid);
+      line-height: 1.85;
+      overflow-y: auto;
+      flex: 1;
+      white-space: pre-wrap;
+      word-break: break-word;
+      min-height: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .proj-readme::-webkit-scrollbar       { width: 2px; }
+    .proj-readme::-webkit-scrollbar-thumb { background: var(--border); }
+
+    /* ── direita: imagem + código ── */
+    .proj-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(25%) contrast(1.05);
+      animation: kenburns 16s ease-in-out infinite alternate;
+    }
+
+    /* fade da esquerda (igual ao sobre) */
+    .proj-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #080808 0%, #08080855 35%, transparent 65%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* painel de código sobreposto à imagem */
+    .proj-code-panel {
+      position: absolute;
+      inset: 1.5rem;
+      z-index: 3;
+      background: rgba(8, 8, 8, 0.88);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.2rem;
+      gap: 0.6rem;
+      overflow: hidden;
+    }
+
+    .proj-code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      line-height: 1.65;
+      color: var(--mid);
+      overflow: hidden;
+      white-space: pre;
+      flex: 1;
+      min-height: 0;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
   <div class="noise"></div>
   <div class="scanlines"></div>
 
-  <div class="page projeto-detalhe" id="conteudo">
-    <a href="index.html" class="page-back">← voltar</a>
-    <p class="tag" id="proj-tag">// carregando...</p>
+  <div class="proj-layout">
 
-    <!--
-      IMAGEM DO PROJETO
-      Coloque uma imagem em assets/projetos/NOME-DO-REPO.jpg
-      para ela aparecer como banner aqui.
-      Se não tiver, aparece a imagem gerada automaticamente pelo GitHub.
-    -->
-    <div class="proj-banner-wrap" id="proj-banner-wrap">
-      <img class="proj-banner" id="proj-banner" src="" alt="">
+    <!-- esquerda: texto -->
+    <div class="proj-left">
+      <a href="index.html" class="page-back">← voltar</a>
+      <span class="tag" id="proj-tag">// carregando...</span>
+
+      <nav class="proj-nav" id="proj-nav">
+        <button class="proj-nav-btn" id="btn-anterior">&lt;&lt; anterior</button>
+        <button class="proj-nav-btn" id="btn-proximo">próximo &gt;&gt;</button>
+      </nav>
+
+      <h1 id="proj-nome"></h1>
+      <p class="proj-meta" id="proj-meta"></p>
+      <p class="proj-desc" id="proj-desc"></p>
+
+      <div class="proj-readme-box" id="proj-readme-box" style="display:none">
+        <span class="tag">// readme</span>
+        <div class="proj-readme" id="proj-readme"></div>
+      </div>
+
+      <a id="proj-link" class="btn-github" href="#" target="_blank">→ ver no github</a>
     </div>
 
-    <h1 id="proj-nome"></h1>
-    <p class="meta" id="proj-meta"></p>
-    <p id="proj-desc"></p>
-    <a id="proj-link" class="btn-github" href="#" target="_blank">
-      → ver no github
-    </a>
+    <!-- direita: imagem + código -->
+    <div class="proj-right">
+      <img class="proj-img" id="proj-img" src="" alt="">
+
+      <div class="proj-code-panel" id="proj-code-panel" style="display:none">
+        <span class="tag">// código</span>
+        <pre class="proj-code" id="proj-code"></pre>
+      </div>
+    </div>
+
   </div>
 
   <script>
     const USUARIO = 'EnzocaTrovoada';
+    let todosRepos = [];
+    let indexAtual = -1;
 
-    async function carregarProjeto() {
+    async function init() {
       const params   = new URLSearchParams(window.location.search);
       const repoNome = params.get('repo');
-
       if (!repoNome) { window.location.href = 'index.html'; return; }
 
       document.title = `${repoNome} — Enzoca Trovoada`;
 
       try {
+        const r   = await fetch(`https://api.github.com/users/${USUARIO}/repos?sort=updated&per_page=30`);
+        const all = await r.json();
+        todosRepos  = all.filter(x => !x.fork && x.name !== 'portfolio');
+        indexAtual  = todosRepos.findIndex(x => x.name === repoNome);
+        configurarNav();
+      } catch (e) {}
+
+      carregarProjeto(repoNome);
+    }
+
+    function configurarNav() {
+      if (todosRepos.length <= 1) return;
+      const nav  = document.getElementById('proj-nav');
+      const ant  = document.getElementById('btn-anterior');
+      const prox = document.getElementById('btn-proximo');
+      nav.style.display  = 'flex';
+      ant.disabled  = indexAtual <= 0;
+      prox.disabled = indexAtual >= todosRepos.length - 1;
+      ant.onclick  = () => ir(indexAtual - 1);
+      prox.onclick = () => ir(indexAtual + 1);
+    }
+
+    function ir(idx) {
+      if (idx < 0 || idx >= todosRepos.length) return;
+      window.location.href = `projeto.html?repo=${encodeURIComponent(todosRepos[idx].name)}`;
+    }
+
+    async function carregarProjeto(repoNome) {
+      try {
         const res  = await fetch(`https://api.github.com/repos/${USUARIO}/${repoNome}`);
         if (!res.ok) throw new Error();
         const repo = await res.json();
 
-        document.getElementById('proj-tag').textContent = '// projeto';
+        document.getElementById('proj-tag').textContent  = '// projeto';
         document.getElementById('proj-nome').textContent = repo.name;
         document.getElementById('proj-desc').textContent = repo.description || 'sem descrição ainda.';
-        document.getElementById('proj-link').href = repo.html_url;
+        document.getElementById('proj-link').href        = repo.html_url;
 
         const meta = [
           repo.language,
@@ -61,25 +250,64 @@
         ].filter(Boolean).join('  ·  ');
         document.getElementById('proj-meta').textContent = meta;
 
-        // tenta imagem customizada primeiro, cai na OG do GitHub
-        const banner = document.getElementById('proj-banner');
-        banner.src = `assets/projetos/${repoNome}.jpg`;
-        banner.onerror = () => {
-          banner.src = `https://opengraph.githubassets.com/1/${USUARIO}/${repoNome}`;
-          banner.onerror = () => {
-            document.getElementById('proj-banner-wrap').style.display = 'none';
-          };
+        const img = document.getElementById('proj-img');
+        img.src     = `assets/projetos/${repoNome}.jpg`;
+        img.onerror = () => {
+          img.src     = `https://opengraph.githubassets.com/1/${USUARIO}/${repoNome}`;
+          img.onerror = () => { img.style.display = 'none'; };
         };
+
+        carregarReadme(repoNome);
+        carregarCodigo(repoNome, repo.language);
 
       } catch (e) {
         document.getElementById('proj-tag').textContent  = '// erro';
         document.getElementById('proj-nome').textContent = repoNome;
         document.getElementById('proj-desc').textContent = 'não foi possível carregar os detalhes.';
-        document.getElementById('proj-banner-wrap').style.display = 'none';
       }
     }
 
-    carregarProjeto();
+    async function carregarReadme(repoNome) {
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${USUARIO}/${repoNome}/readme`,
+          { headers: { Accept: 'application/vnd.github.raw' } }
+        );
+        if (!res.ok) return;
+        const texto = await res.text();
+        document.getElementById('proj-readme').textContent = texto;
+        document.getElementById('proj-readme-box').style.display = 'flex';
+      } catch (e) {}
+    }
+
+    async function carregarCodigo(repoNome, linguagem) {
+      const candidatos = {
+        'Python':     ['main.py', 'app.py', 'index.py'],
+        'JavaScript': ['index.js', 'main.js', 'app.js', 'src/index.js', 'src/main.js'],
+        'TypeScript': ['index.ts', 'main.ts', 'src/index.ts', 'src/main.ts'],
+        'Java':       ['Main.java', 'App.java'],
+        'C':          ['main.c'],
+        'C++':        ['main.cpp'],
+        'HTML':       ['index.html'],
+      };
+      const arquivos = candidatos[linguagem] || ['main.py', 'index.js', 'main.js', 'app.py', 'index.html'];
+
+      for (const arquivo of arquivos) {
+        try {
+          const res = await fetch(`https://api.github.com/repos/${USUARIO}/${repoNome}/contents/${arquivo}`);
+          if (!res.ok) continue;
+          const data     = await res.json();
+          const conteudo = atob(data.content.replace(/\n/g, ''));
+          const linhas   = conteudo.split('\n').slice(0, 40).join('\n');
+
+          document.getElementById('proj-code').textContent         = linhas;
+          document.getElementById('proj-code-panel').style.display = 'flex';
+          return;
+        } catch (e) {}
+      }
+    }
+
+    init();
   </script>
 </body>
 </html>
