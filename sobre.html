@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sobre — Enzoca Trovoada</title>
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
 
@@ -60,6 +60,27 @@
     }
 
     .sobre-slide-img.ativo { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .sobre-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+      }
+
+      .sobre-texto {
+        padding: 2rem 1.25rem;
+        justify-content: flex-start;
+        overflow-y: visible;
+      }
+
+      .sobre-slide-wrap { height: 45vh; min-height: 250px; }
+
+      .sobre-slide-wrap::before {
+        background: linear-gradient(to bottom, #080808 0%, transparent 50%);
+      }
+    }
   </style>
 </head>
 <body>

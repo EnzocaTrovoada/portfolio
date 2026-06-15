@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projeto — Enzoca Trovoada</title>
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* projeto é full-screen (sem scroll de página) */
@@ -149,6 +149,52 @@
       flex: 1;
       min-height: 0;
       margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      html.interna, html.interna body {
+        overflow: auto;
+        height: auto;
+      }
+
+      .proj-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+      }
+
+      .proj-left {
+        overflow-y: visible;
+        padding: 1.5rem 1.2rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .proj-readme-box { flex: none; }
+
+      .proj-readme { max-height: 250px; flex: none; }
+
+      .proj-right { height: 280px; }
+
+      .proj-right::before {
+        background: linear-gradient(to bottom, #080808 0%, transparent 50%);
+      }
+
+      .proj-code-panel {
+        inset: 0.8rem;
+        padding: 0.7rem 0.9rem;
+      }
+
+      .proj-code {
+        font-size: 0.65rem;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .proj-nav-btn {
+        padding: 0.5rem 0.8rem;
+        min-height: 44px;
+      }
     }
   </style>
 </head>

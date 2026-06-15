@@ -496,3 +496,93 @@ html.interna, html.interna body {
   color: var(--bright);
   border-color: var(--mid);
 }
+
+/* ── responsividade mobile ── */
+@media (max-width: 768px) {
+
+  /* libera scroll geral (home) */
+  html, body {
+    overflow: auto;
+    height: auto;
+  }
+
+  /* wrapper: deixa conteúdo fluir */
+  .wrapper {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  /* corpo: coluna única */
+  .corpo {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  /* projetos: borda embaixo em vez de à direita */
+  .projetos {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .projetos-header { padding: 0.85rem 1.2rem; }
+
+  /* lista: scroll da página, não interno */
+  .lista {
+    overflow-y: visible;
+    flex: none;
+  }
+
+  /* cards: sempre expandidos em touch */
+  .card { padding: 1rem 1.2rem; }
+
+  .card-topo { flex-wrap: wrap; }
+
+  .card-corpo {
+    grid-template-rows: 1fr;
+    transition: none;
+  }
+
+  .card-corpo-inner {
+    min-height: 130px;
+    transition: none;
+  }
+
+  .card-bg {
+    opacity: 1;
+    transition: none;
+  }
+
+  /* nav: linha horizontal compacta abaixo dos projetos */
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1.2rem;
+    gap: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-link { font-size: 1.5rem; }
+
+  /* páginas internas: padding menor */
+  .page {
+    padding: 2rem 1.25rem;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .page-back { margin-bottom: 1.5rem; }
+
+  .page h1 { font-size: clamp(2.5rem, 12vw, 5rem); }
+
+  /* contato: itens sociais mais compactos */
+  .social-item {
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .social-nome { font-size: 1.1rem; }
+}
