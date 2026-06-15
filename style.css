@@ -236,6 +236,170 @@ html, body {
 .nav-link:hover { color: var(--bright); }
 .nav-link:hover::after { width: 100%; }
 
+/* ── social links (contato) ── */
+.social-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.social-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--bg);
+  text-decoration: none;
+  transition: background 0.2s;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.social-item:hover { background: var(--surface); }
+
+.social-icon {
+  color: var(--muted);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.social-item:hover .social-icon { color: var(--bright); }
+
+.social-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.social-nome {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  color: var(--bright);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.social-handle {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.social-arrow {
+  color: var(--muted);
+  font-size: 1rem;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.social-item:hover .social-arrow {
+  transform: translateX(4px);
+  color: var(--bright);
+}
+
+.social-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  background: var(--border);
+  border: none;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.social-copy:hover {
+  color: var(--bright);
+  background: var(--surface);
+}
+
+/* ── sobre: imagem de perfil ── */
+.sobre-img-wrap {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.sobre-img {
+  width: 100%;
+  display: block;
+  animation: kenburns 12s ease-in-out infinite alternate;
+  filter: grayscale(30%);
+}
+
+/* ── galeria (sobre) ── */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 4px;
+  margin-top: 2rem;
+}
+
+.galeria img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter 0.3s;
+  animation: kenburns 14s ease-in-out infinite alternate;
+}
+
+.galeria img:hover { filter: grayscale(0%); }
+
+/* ── banner do projeto ── */
+.proj-banner-wrap {
+  width: 100%;
+  max-height: 220px;
+  overflow: hidden;
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.proj-banner {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(40%) contrast(1.1);
+  animation: kenburns 16s ease-in-out infinite alternate;
+}
+
+/* ── card: imagem de fundo no expand ── */
+.card-corpo-inner {
+  overflow: hidden;
+  position: relative;
+}
+
+.card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.4s;
+  filter: grayscale(60%);
+  pointer-events: none;
+}
+
+.card:hover .card-bg { opacity: 0.12; }
+
+/* ── animação Ken Burns ── */
+@keyframes kenburns {
+  0%   { transform: scale(1)    translate(0, 0); }
+  100% { transform: scale(1.06) translate(-1%, -1%); }
+}
+
 /* ── páginas internas ── */
 html.page-body, .page-body body {
   overflow: auto;
