@@ -15,7 +15,7 @@ async function carregarRepos() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
     const repos = await res.json();
-    const publicos = repos.filter(r => !r.fork && r.name !== 'portfolio');
+    const publicos = repos.filter(r => !r.fork && r.name !== 'portfolio' && r.name !== USUARIO);
 
     const count = document.getElementById('repo-count');
     if (count) count.textContent = `${publicos.length} repos`;
