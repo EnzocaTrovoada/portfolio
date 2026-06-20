@@ -87,12 +87,15 @@ carregarRepos();
     idx = (e.key === seq[idx]) ? idx + 1 : (e.key === seq[0] ? 1 : 0);
     if (idx === seq.length) { idx = 0; ativarGlitch(); }
   });
-  function ativarGlitch() {
+function ativarGlitch() {
     const nome = document.querySelector('.nome');
     if (!nome) return;
     const overlay = document.createElement('div');
     overlay.className = 'konami-overlay';
-    overlay.textContent = '⚡ TROVOADA ⚡';
+    const img = document.createElement('img');
+    img.src = 'assets/kojima-cinema.jpg';
+    img.className = 'konami-img';
+    overlay.appendChild(img);
     document.body.appendChild(overlay);
     requestAnimationFrame(() => { overlay.style.opacity = '1'; });
     nome.classList.add('glitch-ativo');
@@ -100,6 +103,6 @@ carregarRepos();
       overlay.style.opacity = '0';
       nome.classList.remove('glitch-ativo');
       setTimeout(() => overlay.remove(), 400);
-    }, 2600);
+    }, 3000);
   }
 })();
